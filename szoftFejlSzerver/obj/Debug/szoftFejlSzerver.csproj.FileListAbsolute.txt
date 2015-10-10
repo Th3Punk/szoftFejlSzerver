@@ -1,0 +1,6 @@
+C:\Users\Balázs\OneDrive\Szoftverfejlesztés\szoftFejlSzerver\szoftFejlSzerver\bin\Debug\szoftFejlSzerver.exe
+C:\Users\Balázs\OneDrive\Szoftverfejlesztés\szoftFejlSzerver\szoftFejlSzerver\bin\Debug\szoftFejlSzerver.pdb
+C:\Users\Balázs\OneDrive\Szoftverfejlesztés\szoftFejlSzerver\szoftFejlSzerver\obj\Debug\szoftFejlSzerver.csprojResolveAssemblyReference.cache
+C:\Users\Balázs\OneDrive\Szoftverfejlesztés\szoftFejlSzerver\szoftFejlSzerver\obj\Debug\szoftFejlSzerver.exe
+C:\Users\Balázs\OneDrive\Szoftverfejlesztés\szoftFejlSzerver\szoftFejlSzerver\obj\Debug\szoftFejlSzerver.pdb
+C:\Users\Balázs\OneDrive\Szoftverfejlesztés\szoftFejlSzerver\szoftFejlSzerver\bin\Debug\szoftFejlSzerver.exe.config
