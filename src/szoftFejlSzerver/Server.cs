@@ -2,6 +2,9 @@
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 
 public class SynchronousSocketListener
 {
@@ -56,9 +59,21 @@ public class SynchronousSocketListener
                 Console.WriteLine("Text received : {0}", data);
 
                 // Echo the data back to the client.
-                byte[] msg = Encoding.ASCII.GetBytes(data);
+                /*byte[] msg = Encoding.ASCII.GetBytes(data);
 
-                handler.Send(msg);
+                handler.Send(msg);*/
+
+                Bitmap tImage = new Bitmap(data.Substring(0, data.Length -5));
+                byte[] bStream = ImageToByte(tImage);
+                try
+                {
+                    handler.Send(bStream);
+                }
+                catch (SocketException e1)
+                {
+                    Console.WriteLine("SocketException: " + e1);
+                }
+
                 handler.Shutdown(SocketShutdown.Both);
                 handler.Close();
             }
@@ -72,6 +87,12 @@ public class SynchronousSocketListener
         Console.WriteLine("\nPress ENTER to continue...");
         Console.Read();
 
+    }
+    static byte[] ImageToByte(System.Drawing.Image iImage)
+    {
+        MemoryStream mMemoryStream = new MemoryStream();
+        iImage.Save(mMemoryStream, System.Drawing.Imaging.ImageFormat.Gif);
+        return mMemoryStream.ToArray();
     }
 
     public static int Main(String[] args)
