@@ -77,11 +77,11 @@ namespace kliens
                     Array.Resize(ref bytes, bytesRec);
                     MemoryStream mem = new MemoryStream(bytes, 0, bytes.Length);
                     newImage = System.Drawing.Image.FromStream(mem, false);
-                    newImage.Save((@"D:\Image.jpeg"), ImageFormat.Jpeg);
+                    newImage.Save((@"C:\Image.jpeg"), ImageFormat.Jpeg);
                     
-                   // pictureBox1.ImageLocation = (@"D:\Image.jpeg");
+                   // pictureBox1.ImageLocation = (@"C:\Image.jpeg");
 
-                    Picture picture = new Picture(@"D:\Image.jpeg");
+                    Picture picture = new Picture(@"C:\Image.jpeg");
                     picture.ShowDialog();
 
                     //MessageBox.Show("Echoed test = " + Encoding.ASCII.GetString(bytes, 0, bytesRec));

@@ -15,3 +15,9 @@
 *.PDF	 diff=astextplain
 *.rtf	 diff=astextplain
 *.RTF	 diff=astextplain
+
+# Custom settings by KRiSTóF
+
+*.sln binary
+*.suo binary
+*.csproj binary
