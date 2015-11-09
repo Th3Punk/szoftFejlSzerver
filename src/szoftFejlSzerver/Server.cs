@@ -9,95 +9,96 @@ using System.IO;
 public class SynchronousSocketListener
 {
 
-    // Incoming data from the client.
-    public static string data = null;
+	// Incoming data from the client.
+	public static string data = null;
 
-    public static void StartListening()
-    {
-        // Data buffer for incoming data.
-        byte[] bytes = new Byte[1024];
+	public static void StartListening ()
+	{
+		// Data buffer for incoming data.
+		byte [] bytes = new Byte [1024];
 
-        // Establish the local endpoint for the socket.
-        // Dns.GetHostName returns the name of the 
-        // host running the application.
-        IPHostEntry ipHostInfo = Dns.Resolve(Dns.GetHostName());
-        IPAddress ipAddress = ipHostInfo.AddressList[0];
-        IPEndPoint localEndPoint = new IPEndPoint(ipAddress, 11000);
+		// Establish the local endpoint for the socket.
+		// Dns.GetHostName returns the name of the 
+		// host running the application.
+		IPHostEntry ipHostInfo = Dns.Resolve (Dns.GetHostName ());
+		IPAddress ipAddress = ipHostInfo.AddressList [0];
+		IPEndPoint localEndPoint = new IPEndPoint (ipAddress, 11000);
 
-        // Create a TCP/IP socket.
-        Socket listener = new Socket(AddressFamily.InterNetwork,
-            SocketType.Stream, ProtocolType.Tcp);
+		// Create a TCP/IP socket.
+		Socket listener = new Socket (AddressFamily.InterNetwork,
+			SocketType.Stream, ProtocolType.Tcp);
 
-        // Bind the socket to the local endpoint and 
-        // listen for incoming connections.
-        try
-        {
-            listener.Bind(localEndPoint);
-            listener.Listen(10);
+		// Bind the socket to the local endpoint and 
+		// listen for incoming connections.
+		try
+		{
+			listener.Bind (localEndPoint);
+			listener.Listen (10);
 
-            // Start listening for connections.
-            while (true)
-            {
-                Console.WriteLine("Waiting for a connection...");
-                // Program is suspended while waiting for an incoming connection.
-                Socket handler = listener.Accept();
-                data = null;
+			// Start listening for connections.
+			while (true)
+			{
+				Console.WriteLine ("Waiting for a connection...");
+				// Program is suspended while waiting for an incoming connection.
+				Socket handler = listener.Accept ();
+				data = null;
 
-                // An incoming connection needs to be processed.
-                while (true)
-                {
-                    bytes = new byte[1024];
-                    int bytesRec = handler.Receive(bytes);
-                    data += Encoding.ASCII.GetString(bytes, 0, bytesRec);
-                    if (data.IndexOf("<EOF>") > -1)
-                    {
-                        break;
-                    }
-                }
+				// An incoming connection needs to be processed.
+				while (true)
+				{
+					bytes = new byte [1024];
+					int bytesRec = handler.Receive (bytes);
+					data += Encoding.ASCII.GetString (bytes, 0, bytesRec);
+					if (data.IndexOf ("<EOF>") > -1)
+					{
+						break;
+					}
+				}
 
-                // Show the data on the console.
-                Console.WriteLine("Text received : {0}", data);
+				// Show the data on the console.
+				Console.WriteLine ("Text received : {0}", data);
 
-                // Echo the data back to the client.
-                /*byte[] msg = Encoding.ASCII.GetBytes(data);
+				// Echo the data back to the client.
+				/*byte[] msg = Encoding.ASCII.GetBytes(data);
 
-                handler.Send(msg);*/
+				handler.Send(msg);*/
 
-                Bitmap tImage = new Bitmap(data.Substring(0, data.Length -5));
-                byte[] bStream = ImageToByte(tImage);
-                try
-                {
-                    handler.Send(bStream);
-                }
-                catch (SocketException e1)
-                {
-                    Console.WriteLine("SocketException: " + e1);
-                }
+				Bitmap tImage = tImage = new Bitmap (data.Substring (0, data.Length - 5));
+				
+				byte [] bStream = ImageToByte (tImage);
+				try
+				{
+					handler.Send (bStream);
+				}
+				catch (SocketException e1)
+				{
+					Console.WriteLine ("SocketException: " + e1);
+				}
 
-                handler.Shutdown(SocketShutdown.Both);
-                handler.Close();
-            }
+				handler.Shutdown (SocketShutdown.Both);
+				handler.Close ();
+			}
 
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e.ToString());
-        }
+		}
+		catch (Exception e)
+		{
+			Console.WriteLine (e.ToString ());
+		}
 
-        Console.WriteLine("\nPress ENTER to continue...");
-        Console.Read();
+		Console.WriteLine ("\nPress ENTER to continue...");
+		Console.Read ();
 
-    }
-    static byte[] ImageToByte(System.Drawing.Image iImage)
-    {
-        MemoryStream mMemoryStream = new MemoryStream();
-        iImage.Save(mMemoryStream, System.Drawing.Imaging.ImageFormat.Gif);
-        return mMemoryStream.ToArray();
-    }
+	}
+	static byte [] ImageToByte (System.Drawing.Image iImage)
+	{
+		MemoryStream mMemoryStream = new MemoryStream ();
+		iImage.Save (mMemoryStream, System.Drawing.Imaging.ImageFormat.Jpeg);
+		return mMemoryStream.ToArray ();
+	}
 
-    public static int Main(String[] args)
-    {
-        StartListening();
-        return 0;
-    }
+	public static int Main (String [] args)
+	{
+		StartListening ();
+		return 0;
+	}
 }

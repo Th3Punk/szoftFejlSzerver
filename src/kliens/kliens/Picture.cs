@@ -18,8 +18,10 @@ namespace kliens
         public Picture(String path)
         {
             InitializeComponent();
-            pictureBox1.ImageLocation = (@"C:\Image.jpeg");
+            // pictureBox1.ImageLocation = (@"C:\Image.jpeg");
 			// Since I have one partition only...
+
+			pictureBox1.ImageLocation = path;
         }
     }
 }
